@@ -6,7 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Latest]
 
-## [0.9.9] - 2019-03-11
+## [0.9.11] - 2019-07-25
+### Fixed
+- Add workaround for invalid rendering of items in scrollable containers in Chrome.
+
+## [0.9.10] - 2019-06-28
+### Fixed
+- Error in authoring mode when one of the ends of new link doesn't have a label.
+- Export SVG by bundling only CSS rules applied to child element on the diagram.
+
+## [0.9.9] - 2019-06-11
 ### Added
 - Allow to change IRI of new entities via custom editor.
 - Separate close button to every dialog.
@@ -431,7 +440,11 @@ info loaded from `DataProvider`.
 ### Added
 - Ontodia published on GitHub as OSS project.
 
-[Latest]: https://github.com/sputniq-space/ontodia/compare/v0.9.7...HEAD
+[Latest]: https://github.com/sputniq-space/ontodia/compare/v0.9.11...HEAD
+[0.9.11]: https://github.com/sputniq-space/ontodia/compare/v0.9.10...v0.9.11
+[0.9.10]: https://github.com/sputniq-space/ontodia/compare/v0.9.9...v0.9.10
+[0.9.9]: https://github.com/sputniq-space/ontodia/compare/v0.9.8...v0.9.9
+[0.9.8]: https://github.com/sputniq-space/ontodia/compare/v0.9.7...v0.9.8
 [0.9.7]: https://github.com/sputniq-space/ontodia/compare/v0.9.6...v0.9.7
 [0.9.6]: https://github.com/sputniq-space/ontodia/compare/v0.9.5...v0.9.6
 [0.9.5]: https://github.com/sputniq-space/ontodia/compare/v0.9.4...v0.9.5
