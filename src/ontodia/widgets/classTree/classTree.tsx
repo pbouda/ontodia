@@ -32,7 +32,7 @@ export interface State {
 }
 
 const CLASS_NAME = 'ontodia-class-tree';
-const MIN_TERM_LENGTH = 3;
+const MIN_TERM_LENGTH = 2;
 
 export class ClassTree extends React.Component<ClassTreeProps, State> {
     private readonly listener = new EventObserver();
