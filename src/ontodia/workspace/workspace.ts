@@ -137,6 +137,7 @@ export class Workspace extends Component<WorkspaceProps, State> {
     private readonly model: AsyncModel;
     private readonly view: DiagramView;
     private readonly editor: EditorController;
+    keywords: string[] = [];
 
     private markup: WorkspaceMarkup;
 
@@ -235,6 +236,7 @@ export class Workspace extends Component<WorkspaceProps, State> {
         this.listener.listen(this.model.events, 'loadingSuccess', () => {
             this.view.performSyncUpdate();
             this.markup.paperArea.centerContent();
+            this.forceUpdate();
         });
 
         this.listener.listen(this.model.events, 'elementEvent', ({key, data}) => {
@@ -470,6 +472,10 @@ class ToolbarWrapper extends Component<ToolbarWrapperProps, {}> {
             isRightPanelOpen: workspace.state.isRightPanelOpen,
             onRightPanelToggle: () => {
                 workspace.setState(prevState => ({isRightPanelOpen: !prevState.isRightPanelOpen}));
+            },
+            keywords: workspace.keywords,
+            onKeywordsChange: (keywords: string[]) => {
+                workspace.keywords = keywords;
             },
         };
         if (toolbar) {

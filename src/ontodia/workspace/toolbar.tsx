@@ -23,11 +23,32 @@ export interface ToolbarProps {
     onLeftPanelToggle?: () => void;
     isRightPanelOpen?: boolean;
     onRightPanelToggle?: () => void;
+    keywords?: string[];
+    onKeywordsChange?: (keywords: string[]) => void;
 }
 
 const CLASS_NAME = 'ontodia-toolbar';
 
-export class DefaultToolbar extends React.Component<ToolbarProps, {}> {
+interface State {
+    keywordsValue: string;
+}
+
+export class DefaultToolbar extends React.Component<ToolbarProps, State> {
+    constructor(props: ToolbarProps) {
+        super(props);
+        this.state = {
+            keywordsValue: this.props.keywords ? this.props.keywords.join(', ') : ''
+        };
+    }
+
+    componentWillReceiveProps(nextProps: ToolbarProps) {
+        if (nextProps.keywords !== this.props.keywords) {
+          this.setState({
+            keywordsValue: nextProps.keywords.join(', ')
+          });
+        }
+      }
+
     private onChangeLanguage = (event: React.SyntheticEvent<HTMLSelectElement>) => {
         const value = event.currentTarget.value;
         this.props.onChangeLanguage(value);
@@ -40,6 +61,12 @@ export class DefaultToolbar extends React.Component<ToolbarProps, {}> {
     private onExportPNG = () => {
         this.props.onExportPNG();
     }
+
+    private onKeywordsChange = (e: React.FormEvent<HTMLInputElement>) => {
+        const keywords = e.currentTarget.value;
+        this.props.onKeywordsChange(keywords.split(/, */));
+        this.setState({keywordsValue: keywords});
+      }
 
     private renderSaveDiagramButton() {
         if (!this.props.onSaveDiagram) { return null; }
@@ -139,6 +166,13 @@ export class DefaultToolbar extends React.Component<ToolbarProps, {}> {
                     {this.renderLanguages()}
                 </div>
                 {this.renderButtonsTogglePanels()}
+                <div className='ontodia-btn-group ontodia-btn-group-sm' style={{width: '300px'}}>
+                    <input type='text' className='ontodia-form-control'
+                        placeholder='Enter keywords, comma separated'
+                        value={this.state.keywordsValue}
+                        onChange={this.onKeywordsChange}
+                    />
+                </div>
             </div>
         );
     }
