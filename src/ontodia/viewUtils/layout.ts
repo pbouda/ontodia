@@ -26,12 +26,12 @@ export function forceLayout(params: {
     nodes: LayoutNode[];
     links: LayoutLink[];
     preferredLinkLength: number;
-    avoidOvelaps?: boolean;
+    avoidOverlaps?: boolean;
 }) {
     const layout = new cola.Layout()
         .nodes(params.nodes)
         .links(params.links)
-        .avoidOverlaps(params.avoidOvelaps)
+        .avoidOverlaps(params.avoidOverlaps)
         .convergenceThreshold(1e-9)
         .jaccardLinkLengths(params.preferredLinkLength)
         .handleDisconnected(true);
@@ -310,15 +310,12 @@ export function recursiveForceLayout(params: {
         fixedElements,
         selectedElements,
         layoutFunction: (nodes, links) => {
-            if (fixedElements && fixedElements.size > 0) {
-                padded(nodes, {x: 50, y: 50}, () => forceLayout({
-                    nodes, links, preferredLinkLength: 200,
-                    avoidOvelaps: true,
-                }));
-            } else {
-                forceLayout({nodes, links, preferredLinkLength: 200});
-                padded(nodes, {x: 50, y: 50}, () => removeOverlaps(nodes));
-            }
+            const preferredLinkLenght = nodes.length < 20 ?
+                200 : nodes.length < 30 ? 300 : 400;
+            padded(nodes, {x: 50, y: 50}, () => forceLayout({
+                nodes, links, preferredLinkLength: preferredLinkLenght,
+                avoidOverlaps: true,
+            }));
         },
     });
 }
